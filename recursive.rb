@@ -52,11 +52,24 @@ roman_mapping = {
   1 => 'I'
 }
 
-def to_roman(roman_mapping, int, result="")
-  return result if int==0
-  roman_mapping.keys.each do |divisor|
+def to_roman(roman_mapping, int, result = '')
+  return result if int == 0
+
+  roman_mapping.each_key do |divisor|
     quotient, modulus = int.divmod(divisor)
     result << roman_mapping[divisor] * quotient
     return to_roman(roman_mapping, modulus, result) if quotient > 0
+  end
+end
+
+def from_roman(roman_mapping, roman_val, result = 0)
+  return result if roman_val.empty?
+
+  roman_mapping.each do |key, value|
+    next unless value == roman_val[0..1] || value == roman_val[0]
+
+    n = 0 + value.length
+    result += key
+    return from_roman(roman_mapping, roman_val[n..], result)
   end
 end
