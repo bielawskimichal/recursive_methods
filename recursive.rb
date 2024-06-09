@@ -73,3 +73,10 @@ def from_roman(roman_mapping, roman_val, result = 0)
     return from_roman(roman_mapping, roman_val[n..], result)
   end
 end
+
+def fibonacci(num)
+  return 0 if num.zero?
+  return 1 if [1, 2].include?(num)
+
+  fibonacci(num - 1) + fibonacci(num - 2)
+end
